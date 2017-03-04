@@ -113,6 +113,7 @@ public class Tweet{
     private long uid; //unique id for the tweet
     private User user;
     private String createdAt;
+    private static long maxId = 0;
 
     public String getBody() {
         return body;
@@ -128,6 +129,10 @@ public class Tweet{
 
     public User getUser() {
         return user;
+    }
+
+    public static long getMaxId() {
+        return maxId;
     }
 
     //deserialize the json and build Tweet objects
@@ -152,18 +157,30 @@ public class Tweet{
     public static ArrayList<Tweet> fromJSONArray(JSONArray jsonArray){
         ArrayList<Tweet> tweets = new ArrayList<>();
         //Iterate the json Array and create tweets
+        long minId = 0;
         for(int i = 0;i< jsonArray.length();i++){
             try {
                 JSONObject tweetJSON = jsonArray.getJSONObject(i);
                 Tweet tweet = Tweet.fromJSON(tweetJSON);
+
                 if (tweet != null){
+
+                    if (minId == 0){
+                        minId = tweet.uid;
+                    }
+                    else if(minId > tweet.uid){
+                        minId = tweet.uid;
+                    }
+
                     tweets.add(tweet);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
                 continue;
             }
+
         }
+        maxId = minId -1;
         //Return the finished list
         return tweets;
     }
