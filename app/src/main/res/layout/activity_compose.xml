@@ -73,4 +73,13 @@
         android:layout_toRightOf="@+id/ivMyPhoto"
         android:layout_toEndOf="@+id/ivMyPhoto" />
 
+    <TextView
+        android:text="140"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etTweetContent"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/tvRemainingWord" />
+
 </RelativeLayout>
