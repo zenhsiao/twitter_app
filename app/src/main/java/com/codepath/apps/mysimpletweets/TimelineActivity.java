@@ -1,5 +1,6 @@
 package com.codepath.apps.mysimpletweets;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,6 +13,7 @@ import com.codepath.apps.mysimpletweets.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -24,6 +26,12 @@ public class TimelineActivity extends AppCompatActivity {
     private ArrayList<Tweet> tweets;
     private TweetsArrayAdapter aTweets;
     private ListView lvTweets;
+    private String myName;
+    private String myScreenName;
+    private String myPhotoUrl;
+
+    // REQUEST_CODE can be any value we like, used to determine the result type later
+    private final int REQUEST_CODE = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +48,7 @@ public class TimelineActivity extends AppCompatActivity {
         //Get the client
         client = TwitterApplication.getRestClient(); //singleton client
         populateTimeline(0);
+        getMyInfo();
 
         // Attach the listener to the AdapterView onCreate
         lvTweets.setOnScrollListener(new EndlessScrollListener() {
@@ -52,6 +61,8 @@ public class TimelineActivity extends AppCompatActivity {
                 return true; // ONLY if more data is actually being loaded; false otherwise.
             }
         });
+
+
     }
 
     @Override
@@ -96,7 +107,67 @@ public class TimelineActivity extends AppCompatActivity {
 
     public void onComposeAction(MenuItem mi) {
         // handle click here
-        Toast.makeText(getApplicationContext(),"compose",Toast.LENGTH_LONG).show();
+//      Toast.makeText(getApplicationContext(),"compose",Toast.LENGTH_LONG).show();
+        Intent i = new Intent(TimelineActivity.this,ComposeActivity.class);
+        i.putExtra("myName", myName);
+        i.putExtra("myScreenName", myScreenName);
+        i.putExtra("myPhotoUrl", myPhotoUrl);
+        startActivityForResult(i, REQUEST_CODE);
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // REQUEST_CODE is defined above
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+            // Extract name value from result extras
+            String text = data.getExtras().getString("text");
+
+            client = TwitterApplication.getRestClient(); //singleton client
+
+
+            client.postTwitter(text, new JsonHttpResponseHandler(){
+                //success
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
+                    Log.d("DEBUG", json.toString());
+
+                    Tweet newTweet = new Tweet();
+                    newTweet = Tweet.fromJSON(json);
+                    aTweets.insert(newTweet,0);
+                    aTweets.notifyDataSetChanged();
+
+                Toast.makeText(getApplicationContext(),"success tweet: "+newTweet.getBody(),Toast.LENGTH_LONG).show();
+                }
+
+                //Failure
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    Log.d("DEBUG",errorResponse.toString());
+                }
+            });
+        }
+    }
+
+    public void getMyInfo(){
+        client.getMyTwitterInfo(new JsonHttpResponseHandler(){
+            //success
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
+                Log.d("DEBUG", json.toString());
+                try {
+                    myName = json.getString("name");
+                    myScreenName = json.getString("screen_name");
+                    myPhotoUrl = json.getString("profile_image_url");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            //Failure
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Log.d("DEBUG",errorResponse.toString());
+            }
+        });
     }
 }

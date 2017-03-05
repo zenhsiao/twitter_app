@@ -40,7 +40,7 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet>{
         TextView tvTime = (TextView) convertView.findViewById(R.id.tvTime);
         //4.Populate data into subviews
         tvUserName.setText(tweet.getUser().getName());
-        tvScreenName.setText(tweet.getUser().getScreenName());
+        tvScreenName.setText("@"+tweet.getUser().getScreenName());
         tvBody.setText(tweet.getBody());
         tvTime.setText(tweet.getCreatedAt());
         ivProfileImage.setImageResource(0);//clear out the oldimage for a recycled view
