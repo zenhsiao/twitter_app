@@ -3,7 +3,10 @@ package com.codepath.apps.mysimpletweets;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.codepath.apps.mysimpletweets.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -51,6 +54,13 @@ public class TimelineActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.timeline, menu);
+        return true;
+    }
+
     // Append the next page of data into the adapter
     // This method probably sends out a network request and appends new data items to your adapter.
     public void loadNextDataFromApi(int offset) {
@@ -82,5 +92,11 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.d("DEBUG",errorResponse.toString());
             }
         });
+    }
+
+    public void onComposeAction(MenuItem mi) {
+        // handle click here
+        Toast.makeText(getApplicationContext(),"compose",Toast.LENGTH_LONG).show();
+
     }
 }
