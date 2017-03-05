@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/Zen/Downloads/MySimpleTwitter/app/build/intermediates/res/merged/debug/menu/login.xml",
+        "source": "/Users/Zen/Downloads/MySimpleTwitter/app/src/main/res/menu/login.xml"
+    },
+    {
+        "merged": "/Users/Zen/Downloads/MySimpleTwitter/app/build/intermediates/res/merged/debug/menu/timeline.xml",
+        "source": "/Users/Zen/Downloads/MySimpleTwitter/app/src/main/res/menu/timeline.xml"
+    }
+]
