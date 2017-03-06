@@ -5,46 +5,33 @@
     density="xxhdpi"
     format="8"
     plugin-version="2.2.3"
-    timestamp="197875464522987"
+    timestamp="224448359253296"
     token="1280215913407959062"
-    verifier="COMPATIBLE" >
+    verifier="FULL_BUILD_REQUESTED" >
 
     <task
         name="javac"
-        duration="1042" />
+        duration="3016" />
     <task
         name="instant-run-dex"
-        duration="737" />
+        duration="0" />
     <task
         name="instant-run-transform"
-        duration="32" />
+        duration="877" />
     <task
         name="verifier"
-        duration="1" />
+        duration="33" />
 
     <artifact
-        location="/Users/Zen/Downloads/MySimpleTwitter/app/build/intermediates/instant-run-resources/resources-debug.ir.ap_"
-        type="RESOURCES" />
-    <artifact
-        location="/Users/Zen/Downloads/MySimpleTwitter/app/build/intermediates/reload-dex/debug/classes.dex"
-        type="RELOAD_DEX" />
+        location="/Users/Zen/Downloads/MySimpleTwitter/app/build/outputs/apk/app-debug.apk"
+        type="MAIN" />
 
     <build
-        timestamp="197760162799983"
+        timestamp="224448359253296"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="/Users/Zen/Downloads/MySimpleTwitter/app/build/outputs/apk/app-debug.apk"
             type="MAIN" />
-    </build>
-    <build
-        timestamp="197875464522987"
-        verifier="COMPATIBLE" >
-        <artifact
-            location="/Users/Zen/Downloads/MySimpleTwitter/app/build/intermediates/instant-run-resources/resources-debug.ir.ap_"
-            type="RESOURCES" />
-        <artifact
-            location="/Users/Zen/Downloads/MySimpleTwitter/app/build/intermediates/reload-dex/debug/classes.dex"
-            type="RELOAD_DEX" />
     </build>
 
 </instant-run>

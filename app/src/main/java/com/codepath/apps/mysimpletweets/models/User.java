@@ -3,6 +3,8 @@ package com.codepath.apps.mysimpletweets.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /*
   "user": {
       "name": "OAuth Dancer",
@@ -61,7 +63,7 @@ import org.json.JSONObject;
       "screen_name": "oauth_dancer"
     },
  */
-public class User {
+public class User implements Serializable {
     //list attributes
     private String name;
     private long uid;

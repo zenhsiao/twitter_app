@@ -27,6 +27,7 @@ public class TwitterApplication extends Application {
 		FlowLog.setMinimumLoggingLevel(FlowLog.Level.V);
 
 		TwitterApplication.context = this;
+
 	}
 
 	public static TwitterClient getRestClient() {

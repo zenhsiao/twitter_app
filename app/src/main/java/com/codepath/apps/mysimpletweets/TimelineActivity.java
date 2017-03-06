@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.codepath.apps.mysimpletweets.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -119,32 +118,36 @@ public class TimelineActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // REQUEST_CODE is defined above
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-            // Extract name value from result extras
-            String text = data.getExtras().getString("text");
 
-            client = TwitterApplication.getRestClient(); //singleton client
-
-
-            client.postTwitter(text, new JsonHttpResponseHandler(){
-                //success
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
-                    Log.d("DEBUG", json.toString());
-
-                    Tweet newTweet = new Tweet();
-                    newTweet = Tweet.fromJSON(json);
-                    aTweets.insert(newTweet,0);
-                    aTweets.notifyDataSetChanged();
-
-                Toast.makeText(getApplicationContext(),"success tweet: "+newTweet.getBody(),Toast.LENGTH_LONG).show();
-                }
-
-                //Failure
-                @Override
-                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    Log.d("DEBUG",errorResponse.toString());
-                }
-            });
+            Tweet newTweet =(Tweet) data.getSerializableExtra("newTweet");
+            aTweets.insert(newTweet,0);
+            aTweets.notifyDataSetChanged();
+//            // Extract name value from result extras
+//            String text = data.getExtras().getString("text");
+//
+//            client = TwitterApplication.getRestClient(); //singleton client
+//
+//
+//            client.postTwitter(text, new JsonHttpResponseHandler(){
+//                //success
+//                @Override
+//                public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
+//                    Log.d("DEBUG", json.toString());
+//
+//                    Tweet newTweet = new Tweet();
+//                    newTweet = Tweet.fromJSON(json);
+//                    aTweets.insert(newTweet,0);
+//                    aTweets.notifyDataSetChanged();
+//
+//                Toast.makeText(getApplicationContext(),"success tweet: "+newTweet.getBody(),Toast.LENGTH_LONG).show();
+//                }
+//
+//                //Failure
+//                @Override
+//                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//                    Log.d("DEBUG",errorResponse.toString());
+//                }
+//            });
         }
     }
 

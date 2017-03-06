@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Mon Mar 06 00:45:40 CST 2017
+#Mon Mar 06 01:32:32 CST 2017
 210.set=ANDROID_RESOURCE
 14.set=ANDROID_RESOURCE
 180.file=/Users/Zen/Downloads/MySimpleTwitter/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar/jarbuilder.jardesc
